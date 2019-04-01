@@ -35,3 +35,32 @@ function pno_yoast_register_listings_custom_fields_vars() {
 	}
 }
 add_action( 'wpseo_register_extra_replacements', 'pno_yoast_register_listings_custom_fields_vars' );
+
+/**
+ * Retrieve the value associated with the given listing field for Yoast replacements variables.
+ *
+ * @param string $var the variable to look up.
+ * @return string|boolean
+ */
+function pno_yoast_get_variable_value( $var ) {
+
+	global $post;
+
+	$value           = false;
+	$listings_fields = pno_get_listings_fields();
+	$field           = wp_list_filter( $listings_fields, [ 'meta' => $var ] );
+
+	if ( is_array( $field ) && ! empty( $field ) ) {
+
+		$field_type = esc_attr( $field[ key( $field ) ]['type'] );
+		$var        = pno_convert_field_meta_key_to_db_key( $var );
+		$meta_value = get_post_meta( $post->ID, '_' . $var, true );
+
+		if ( $value ) {
+			$value = esc_html( wp_strip_all_tags( pno_display_field_value( $field_type, $meta_value, $field, true ) ) );
+		}
+	}
+
+	return $value;
+
+}
