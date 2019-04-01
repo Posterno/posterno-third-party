@@ -96,7 +96,7 @@ function pno_yoast_get_variable_value( $var ) {
 		$meta_value = get_post_meta( $post->ID, '_' . $var, true );
 
 		if ( $meta_value ) {
-			$value = esc_html( wp_strip_all_tags( pno_display_field_value( $field_type, $meta_value, $field, true ) ) );
+			$value = esc_html( wp_strip_all_tags( pno_display_field_value( $field_type, $meta_value, $field[ key( $field ) ], true ) ) );
 		}
 	}
 
