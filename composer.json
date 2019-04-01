@@ -16,7 +16,7 @@
 	},
 	"autoload": {
 		"files" : [
-			"geocoder.php"
+			"3rd-party.php"
 		]
 	},
 	"require-dev": {
