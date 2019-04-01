@@ -1,6 +1,6 @@
 {
 	"name": "posterno/posterno-third-party",
-	"description": "Posterno component that provides integration with third party plugins. ",
+	"description": "Posterno component that provides integration with third party plugins.",
 	"type": "wordpress-plugin",
 	"keywords": [
 		"wordpress"
