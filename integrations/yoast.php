@@ -19,14 +19,40 @@ defined( 'ABSPATH' ) || exit;
 function pno_yoast_register_listings_custom_fields_vars() {
 
 	$exclude         = [
-		'listing_location',
-		'listing_gallery',
-		'listing_opening_hours',
-		'listing_social_media_profiles',
-		'listing_description',
 		'listing_title',
+		'listing_description',
+		'listing_social_media_profiles',
+		'listing_categories',
+		'listing_tags',
+		'listing_regions',
+		'listing_opening_hours',
+		'listing_featured_image',
+		'listing_gallery',
+		'listing_location',
 	];
+
+	$exclude_types = [
+		'password',
+		'file',
+		'social-profiles',
+		'listing-category',
+		'listing-tags',
+		'term-select',
+		'term-multiselect',
+		'term-checklist',
+		'term-chain-dropdown',
+		'listing-opening-hours',
+		'listing-location',
+	];
+
 	$listings_fields = pno_get_listings_fields( $exclude );
+
+	// Exclude fields by type.
+	foreach ( $listings_fields as $key => $field ) {
+		if ( in_array( $field['type'], $exclude_types ) ) {
+			unset( $listings_fields[ $key ] );
+		}
+	}
 
 	if ( is_array( $listings_fields ) && ! empty( $listings_fields ) ) {
 		foreach ( $listings_fields as $field ) {
@@ -53,7 +79,16 @@ function pno_yoast_get_variable_value( $var ) {
 	if ( is_array( $field ) && ! empty( $field ) ) {
 
 		$field_type = esc_attr( $field[ key( $field ) ]['type'] );
-		$var        = pno_convert_field_meta_key_to_db_key( $var );
+
+		switch ( $var ) {
+			case 'listing_email_address':
+				$var = 'listing_email';
+				break;
+			case 'listing_video':
+				$var = 'listing_media_embed';
+				break;
+		}
+
 		$meta_value = get_post_meta( $post->ID, '_' . $var, true );
 
 		if ( $value ) {
