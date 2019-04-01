@@ -59,6 +59,10 @@ function pno_yoast_register_listings_custom_fields_vars() {
 			wpseo_register_var_replacement( '%%' . $field['meta'] . '%%', 'pno_yoast_get_variable_value', 'advanced', $field['name'] );
 		}
 	}
+
+	// Add other type of data.
+	wpseo_register_var_replacement( '%%listing_address%%', 'pno_yoast_get_listing_address', 'advanced', esc_html__( 'Listing address' ) );
+
 }
 add_action( 'wpseo_register_extra_replacements', 'pno_yoast_register_listings_custom_fields_vars' );
 
@@ -91,11 +95,23 @@ function pno_yoast_get_variable_value( $var ) {
 
 		$meta_value = get_post_meta( $post->ID, '_' . $var, true );
 
-		if ( $value ) {
+		if ( $meta_value ) {
 			$value = esc_html( wp_strip_all_tags( pno_display_field_value( $field_type, $meta_value, $field, true ) ) );
 		}
 	}
 
 	return $value;
 
+}
+
+/**
+ * Retrieve the listing address for the yoast variable.
+ *
+ * @return string
+ */
+function pno_yoast_get_listing_address() {
+
+	global $post;
+
+	return esc_html( get_post_meta( $post->ID, '_listing_location_address', true ) );
 }
