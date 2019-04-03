@@ -61,7 +61,7 @@ function pno_yoast_register_listings_custom_fields_vars() {
 	}
 
 	// Add other type of data.
-	wpseo_register_var_replacement( '%%listing_address%%', 'pno_yoast_get_listing_address', 'advanced', esc_html__( 'Listing address' ) );
+	wpseo_register_var_replacement( '%%listing_address%%', 'pno_yoast_get_listing_address', 'advanced', esc_html__( 'Listing address', 'posterno' ) );
 
 }
 add_action( 'wpseo_register_extra_replacements', 'pno_yoast_register_listings_custom_fields_vars' );
