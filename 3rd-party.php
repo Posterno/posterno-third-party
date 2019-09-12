@@ -21,13 +21,13 @@ function pno_3rd_party_loader() {
 	$yoast = defined( 'WPSEO_FILE' );
 
 	if ( $yoast ) {
-		require_once PNO_PLUGIN_DIR . 'includes/components/posterno-third-party/integrations/yoast.php';
+		require_once PNO_PLUGIN_DIR . 'vendor/posterno/posterno-third-party/integrations/yoast.php';
 	}
 
 	$jetpack = defined( 'JETPACK__VERSION' );
 
 	if ( $jetpack ) {
-		require_once PNO_PLUGIN_DIR . 'includes/components/posterno-third-party/integrations/jetpack.php';
+		require_once PNO_PLUGIN_DIR . 'vendor/posterno/posterno-third-party/integrations/jetpack.php';
 	}
 
 }
